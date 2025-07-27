@@ -95,7 +95,7 @@ App available at: `http://localhost:3000`
 ## 🔐 Demo Credentials
 
 **Email:** habeebnasr4@gmail.com  
-**Password:** secureHabeeb1
+**Password:**secureHabeeb1
 
 ## 📊 Database Schema
 
