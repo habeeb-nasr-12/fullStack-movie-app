@@ -11,60 +11,12 @@ node_modules/
 frontend/node_modules/
 backend/node_modules/
 
-# Build outputs
-/dist
-/build
-frontend/dist/
-frontend/build/
-backend/dist/
-backend/build/
 
-# Public assets
-/public
-frontend/public/
 
-# Source files (if needed)
-/src
-frontend/src/
-backend/src/
 
-# Test files
-/test
-frontend/test/
-backend/test/
 
-# Documentation
-/docs
-frontend/docs/
-backend/docs/
 
-# Logs
-/logs
-frontend/logs/
-backend/logs/
 
-# Cache
-/cache
-frontend/cache/
-backend/cache/
 
-# IDE and editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
-# Package manager files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
