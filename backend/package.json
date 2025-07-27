@@ -1,0 +1,42 @@
+{
+  "name": "movies-backend",
+  "version": "1.0.0",
+  "description": "Backend API for movies and TV shows management",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "build": "echo 'No build step required'",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed:all",
+    "postinstall": "npm run migrate"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "sequelize-cli": "^6.6.1"
+  },
+  "keywords": [
+    "movies",
+    "api",
+    "express",
+    "postgresql"
+  ],
+  "author": "Senior Full Stack Developer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
