@@ -129,7 +129,9 @@ export const getMovieTableColumns = (): ColumnsType<MovieTVShow> => [
     render: (rating: number) => (
       <div className="space-y-1">
         {rating ? (
-          <Rate disabled defaultValue={rating} className="text-xs" />
+          <Tag color={rating > 7 ? "green" : rating > 5 ? "yellow" : "red"} className="text-xs">
+            {rating}
+          </Tag>
         ) : (
           <AntText type="secondary" className="text-xs">
             No rating
