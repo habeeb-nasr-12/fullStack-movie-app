@@ -40,7 +40,7 @@ A modern full-stack application for managing your favorite movies and TV shows w
 ### 1. Clone & Install
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/habeeb-nasr-12/fullStack-movie-app.git
 cd movies-full-stack-app
 ```
 
