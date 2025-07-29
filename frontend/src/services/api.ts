@@ -15,9 +15,7 @@ import {
 } from "@/types";
 
 const api = axios.create({
-  baseURL: import.meta.env.DEV 
-    ? "/api" 
-    : import.meta.env.VITE_API_URL || "/api",
+  baseURL: import.meta.env.DEV ? "/api" : import.meta.env.VITE_API_URL + "/api",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -78,7 +76,6 @@ export const authAPI = {
     return response.data;
   },
 };
-
 
 export const moviesAPI = {
   getAll: async (params: GetMoviesQuery = {}): Promise<GetMoviesResponse> => {
