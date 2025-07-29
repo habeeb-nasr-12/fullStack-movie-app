@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import db from './models/index.js';
+import { initializeDatabase } from '../config/database.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 import authRoutes from './routes/authRoutes.js';
 import movieTVShowRoutes from './routes/movieTVShowRoutes.js';
@@ -70,8 +70,9 @@ app.use(errorHandler);
 
 const startServer = async () => {
   try {
-    await db.sequelize.authenticate();
-    await db.sequelize.sync({ alter: false });
+    // Initialize database connection
+    const sequelize = await initializeDatabase();
+    
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`)
     });
@@ -83,14 +84,16 @@ const startServer = async () => {
 
 process.on('SIGTERM', async () => {
   console.log('⏳ SIGTERM received. Shutting down gracefully...');
-  await db.sequelize.close();
+  const { sequelize } = await import('../config/database.js');
+  await sequelize.close();
   console.log('✅ Database connection closed.');
   process.exit(0);
 });
 
 process.on('SIGINT', async () => {
   console.log('⏳ SIGINT received. Shutting down gracefully...');
-  await db.sequelize.close();
+  const { sequelize } = await import('../config/database.js');
+  await sequelize.close();
   console.log('✅ Database connection closed.');
   process.exit(0);
 });
