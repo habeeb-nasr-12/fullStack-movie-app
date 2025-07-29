@@ -3,23 +3,22 @@ import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
-const config = {
-  host: process.env.MYSQLHOST || 'localhost',
-  username: process.env.MYSQLUSER || 'root',
-  password: process.env.MYSQLPASSWORD || '',
-  database: process.env.MYSQL_DATABASE || 'movies_db',
-  port: process.env.MYSQLPORT || 3306,
+const developmentConfig = {
+  host: process.env.DB_HOST || 'localhost',
+  username: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || null, 
+  database: process.env.DB_NAME || 'movies_db',
+  port: process.env.DB_PORT || 3306,
   dialect: 'mysql',
-  logging: process.env.NODE_ENV === 'development' ? console.log : false,
+  logging: console.log,
   define: {
     timestamps: true,
     underscored: true,
   },
   dialectOptions: {
-    ssl: process.env.NODE_ENV === 'production' ? {
-      require: true,
-      rejectUnauthorized: false,
-    } : false,
+    ssl: false,
+    connectTimeout: 60000,
+    acquireTimeout: 60000,
   },
   pool: {
     max: 20,
@@ -29,7 +28,34 @@ const config = {
   },
 };
 
-// Create Sequelize connection instance
+const productionConfig = {
+  host: process.env.MYSQLHOST || 'localhost',
+  username: process.env.MYSQLUSER || 'root',
+  password: process.env.MYSQLPASSWORD || '',
+  database: process.env.MYSQL_DATABASE || 'movies_db',
+  port: process.env.MYSQLPORT || 3306,
+  dialect: 'mysql',
+  logging: false,
+  define: {
+    timestamps: true,
+    underscored: true,
+  },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  pool: {
+    max: 20,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};
+
+const config = process.env.NODE_ENV === 'production' ? productionConfig : developmentConfig;
+
 const sequelize = new Sequelize(
   config.database,
   config.username,
@@ -45,7 +71,6 @@ const sequelize = new Sequelize(
   }
 );
 
-// Test database connection
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
@@ -56,13 +81,14 @@ const testConnection = async () => {
     return false;
   }
 };
-const initializeDatabase = async () => {
-  try {
 
+const initializeDatabase = async () => {
+  try {   
     const isConnected = await testConnection();
     if (!isConnected) {
       throw new Error('Failed to establish database connection');
     }
+
     if (process.env.NODE_ENV === 'development') {
       await sequelize.sync({ alter: false });
       console.log('✅ Database synchronized successfully.');
@@ -73,11 +99,11 @@ const initializeDatabase = async () => {
     console.error('❌ Database initialization failed:', error.message);
     process.exit(1);
   }
-};
+  };
 
 export default {
-  development: config,
-  production: config,
+  development: developmentConfig,
+  production: productionConfig,
 };
 
 export { sequelize, testConnection, initializeDatabase }; 
