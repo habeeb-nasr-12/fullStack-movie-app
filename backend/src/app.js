@@ -72,7 +72,6 @@ const startServer = async () => {
   try {
     // Initialize database connection
     const sequelize = await initializeDatabase();
-    
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`)
     });
@@ -83,18 +82,14 @@ const startServer = async () => {
 };
 
 process.on('SIGTERM', async () => {
-  console.log('⏳ SIGTERM received. Shutting down gracefully...');
   const { sequelize } = await import('../config/database.js');
   await sequelize.close();
-  console.log('✅ Database connection closed.');
   process.exit(0);
 });
 
 process.on('SIGINT', async () => {
-  console.log('⏳ SIGINT received. Shutting down gracefully...');
   const { sequelize } = await import('../config/database.js');
   await sequelize.close();
-  console.log('✅ Database connection closed.');
   process.exit(0);
 });
 

@@ -1,5 +1,5 @@
 import { ColumnsType } from "antd/es/table";
-import { Space, Tag, Typography, Image, Rate, Empty } from "antd";
+import { Space, Tag, Typography, Image } from "antd";
 import {
   CalendarOutlined,
   ClockCircleOutlined,
