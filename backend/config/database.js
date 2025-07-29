@@ -7,7 +7,7 @@ const config = {
   host: process.env.MYSQLHOST || 'localhost',
   username: process.env.MYSQLUSER || 'root',
   password: process.env.MYSQLPASSWORD || '',
-  database: process.env.DB_NAME || 'movies_db',
+  database: process.env.MYSQL_DATABASE || 'movies_db',
   port: process.env.MYSQLPORT || 3306,
   dialect: 'mysql',
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
